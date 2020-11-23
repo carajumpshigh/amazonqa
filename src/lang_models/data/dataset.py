@@ -24,17 +24,17 @@ class AmazonDataset(object):
         self.max_vocab_size = params[C.VOCAB_SIZE]
         suffix = 'qar_reduced'
 
-        train_path = '%s/train-%s.jsonl' % (".", suffix)
+        train_path = '%s/train-%s.jsonl' % ("./amazonqa/datasets", suffix)
         self.vocab = self.create_vocab(train_path)
 
         if mode == C.TRAIN_TYPE:
             self.train = self.get_data(train_path)
 
-            val_path = '%s/val-%s.jsonl' % (".", suffix)
+            val_path = '%s/val-%s.jsonl' % ("./amazonqa/datasets", suffix)
             self.val = self.get_data(val_path)
 
         if mode == C.DEV_TYPE or mode == C.TEST_TYPE:
-            test_path = '%s/test-%s.jsonl' % (".", suffix)
+            test_path = '%s/test-%s.jsonl' % ("./amazonqa/datasets", suffix)
             self.test = self.get_data(test_path)
 
     @staticmethod
