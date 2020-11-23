@@ -172,8 +172,8 @@ class Trainer:
             if self.params[C.LR_DECAY] is not None and epoch >= self.params[C.DECAY_START_EPOCH] - 1:
                 if epoch > 0 and self.metrics.dev_loss[-1] > self.metrics.dev_loss[epoch-1]:
                     self._decay_lr(epoch, self.params[C.LR_DECAY])
-                    lr *= self.params[C.LR_DECAY]
-                    self._set_optimizer(epoch, lr=lr)
+                    self.lr *= self.params[C.LR_DECAY]
+                    self._set_optimizer(epoch)
 
             # Save the best model till now
             if self.metrics.is_best_dev_loss():
