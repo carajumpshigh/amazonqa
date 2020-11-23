@@ -207,7 +207,7 @@ class Trainer:
         return loss.data.item(), perplexity
 
 
-    def eval(self, dataloader, mode, output_filename="./saved/eval.out", epoch=0):
+    def eval(self, dataloader, mode, output_filename="./saved/output.json", epoch=0):
 
         self.model.eval()
 
@@ -237,27 +237,31 @@ class Trainer:
 
             if mode == C.TEST_TYPE or mode == C.TRAIN_TYPE or mode == C.DEV_TYPE:
                 output_seq = output_seq.data.cpu().numpy()
-                with open(output_filename, 'a') as fp:
-                    for seq_itr, length in enumerate(output_lengths):
-                        length = int(length)
-                        seq = output_seq[seq_itr, :length]
-                        if seq[-1] == C.EOS_INDEX:
-                            seq = seq[:-1]
-                        tokens = self.vocab.token_list_from_indices(seq)
-                        generated_answer = ' '.join(tokens)
-                        fp.write(generated_answer + '\n')
-                        
-                        gold_answers = []
-                        question_id = question_ids[seq_itr]
-                        answer_ids = dataloader.questionAnswersDict[question_id]
-                        for answer_id in answer_ids:
-                            answer_seq = dataloader.answersDict[answer_id]
-                            answer_tokens = self.vocab.token_list_from_indices(answer_seq)
-                            gold_answers.append(' '.join(answer_tokens))
+#                 with open(output_filename, 'a') as fp:
+                for seq_itr, length in enumerate(output_lengths):
+                    length = int(length)
+                    seq = output_seq[seq_itr, :length]
+                    if seq[-1] == C.EOS_INDEX:
+                        seq = seq[:-1]
+                    tokens = self.vocab.token_list_from_indices(seq)
+                    generated_answer = ' '.join(tokens)
+#                     fp.write(generated_answer + '\n')
 
-                        gold_answers_dict[question_id] = gold_answers
-                        generated_answer_dict[question_id] = [generated_answer]
+                    gold_answers = []
+                    question_id = question_ids[seq_itr]
+                    answer_ids = dataloader.questionAnswersDict[question_id]
+                    for answer_id in answer_ids:
+                        answer_seq = dataloader.answersDict[answer_id]
+                        answer_tokens = self.vocab.token_list_from_indices(answer_seq)
+                        gold_answers.append(' '.join(answer_tokens))
+
+                    gold_answers_dict[question_id] = gold_answers
+                    generated_answer_dict[question_id] = [generated_answer]
         
+        with open(output_filename, 'a') as fp:
+            fp.write(json.dumps(generated_answer_dict))
+            fp.write('\n')
+            
         if mode == C.TEST_TYPE or mode == C.TRAIN_TYPE or mode == C.DEV_TYPE:
             print(COCOEvalCap.compute_scores(gold_answers_dict, generated_answer_dict))
 
