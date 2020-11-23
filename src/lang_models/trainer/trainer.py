@@ -207,7 +207,7 @@ class Trainer:
         return loss.data.item(), perplexity
 
 
-    def eval(self, dataloader, mode, output_filename=None, epoch=0):
+    def eval(self, dataloader, mode, output_filename="./saved/eval.out", epoch=0):
 
         self.model.eval()
 
@@ -235,7 +235,7 @@ class Trainer:
                 compute_loss=compute_loss
             )
 
-            if mode == C.TEST_TYPE:
+            if mode == C.TEST_TYPE or mode == C.TRAIN_TYPE or mode == C.DEV_TYPE:
                 output_seq = output_seq.data.cpu().numpy()
                 with open(output_filename, 'a') as fp:
                     for seq_itr, length in enumerate(output_lengths):
@@ -258,7 +258,7 @@ class Trainer:
                         gold_answers_dict[question_id] = gold_answers
                         generated_answer_dict[question_id] = [generated_answer]
         
-        if mode == C.TEST_TYPE:
+        if mode == C.TEST_TYPE or mode == C.TRAIN_TYPE or mode == C.DEV_TYPE:
             print(COCOEvalCap.compute_scores(gold_answers_dict, generated_answer_dict))
 
         if mode == C.DEV_TYPE:
