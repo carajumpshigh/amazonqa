@@ -28,7 +28,8 @@ class Saver:
     def __init__(self, save_dir, params):
         if save_dir:
             self.save_dir = save_dir
-            self.params = _json_load(self._params_filename())
+            self.params = params
+#             self.params = _json_load(self._params_filename())
         else:
             raise Exception("save_dir argument not found")
 
