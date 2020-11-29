@@ -5,7 +5,8 @@
 
 
 import torch.nn as nn
-from allennlp.commands.elmo import ElmoEmbedder
+
+from allennlp.modules.elmo import Elmo
 
 from .baseRNN import BaseRNN
 
@@ -42,7 +43,11 @@ class EncoderRNN(BaseRNN):
                 input_dropout_p, dropout_p, n_layers, rnn_cell)
 
         self.variable_lengths = variable_lengths
-        self.embedding = ElmoEmbedder()
+        options_file = "https://s3-us-west-2.amazonaws.com/allennlp/models/elmo/2x4096_512_2048cnn_2xhighway/elmo_2x4096_512_2048cnn_2xhighway_options.json"
+        weight_file = "https://s3-us-west-2.amazonaws.com/allennlp/models/elmo/2x4096_512_2048cnn_2xhighway/elmo_2x4096_512_2048cnn_2xhighway_weights.hdf5"
+        elmo = Elmo(options_file, weight_file, 1, dropout=0)
+        
+        self.embedding = elmo
         self.rnn = self.rnn_cell(embedding_size, hidden_size, n_layers,
                                  batch_first=True, bidirectional=bidirectional, dropout=dropout_p)
 
