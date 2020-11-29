@@ -15,7 +15,7 @@ from torch import optim
 from torch.autograd import Variable
 
 import constants as C
-from models.seq2seq_BiLSTM import Seq2Seq
+from models.seq2seq import Seq2Seq
 from trainer.loss import Loss
 
 from evaluator.evaluator import COCOEvalCap
