@@ -16,7 +16,7 @@ import numpy as np
 
 import config
 import constants as C
-from trainer.trainer_BiLSTM import Trainer, hsizes
+from trainer.trainer import Trainer, hsizes
 from data.dataloader import AmazonDataLoader
 from data.dataset import AmazonDataset
 from models.seq2seq_BiLSTM import Seq2Seq
