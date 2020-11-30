@@ -40,7 +40,7 @@ class Attention(nn.Module):
     """
     def __init__(self, dim, model_name):
         super(Attention, self).__init__()
-        
+        self.dim = dim
         self.model_name = model_name
         if self.model_name == C.LM_QUESTION_ANSWERS:
             self.dim_factor = 2
@@ -91,7 +91,7 @@ class Attention(nn.Module):
             combined = torch.cat((question_mix, output), dim=2)
 
         # output -> (batch, out_len, dim)
-        output = F.tanh(self.linear_out(combined.view(-1, self.dim_factor * self.hidden_size))).view(self.batch_size, -1, self.hidden_size)
+        output = F.tanh(self.linear_out(combined.view(-1, self.dim_factor * self.dim))).view(self.batch_size, -1, self.hidden_size)
         return output, attn
 
 
