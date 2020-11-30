@@ -174,15 +174,11 @@ class DecoderRNN(BaseRNN):
             encoder_hidden = self._cat_directions(encoder_hidden)
         return encoder_hidden
 
-    """
-    def _cat_directions(self, h):
-        """ If the encoder is bidirectional, do the following transformation.
-            (#directions * #layers, #batch, hidden_size) -> (#layers, #batch, #directions * hidden_size)
-        """
-        if self.bidirectional_encoder:
-            h = torch.cat([h[0:h.size(0):2], h[1:h.size(0):2]], 2)
-        return h
-    """
+    
+
+   
+
+    
 
     def _validate_args(self, inputs, encoder_hidden, encoder_outputs, function, teacher_forcing_ratio):
         if self.use_attention:
