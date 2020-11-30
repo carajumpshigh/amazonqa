@@ -217,5 +217,5 @@ LM_HP = {
     SAVE_DIR:                     [LM_MODELS]*3,
     
     RNN_CELL:                     [RNN] * 3,
-    BIDIRECTIONAL:                [False,             True,               True]
+    BIDIRECTIONAL:                [False,             False,               False]
 }
