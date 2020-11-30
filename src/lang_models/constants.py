@@ -207,7 +207,7 @@ LM_HP = {
     VOCAB_SIZE:                   [30000,             30000,              20000],
     TEACHER_FORCING_RATIO:        [1.0,               1.0,                1.0],
     OUTPUT_MAX_LEN:               [128,               128,                128],
-    USE_ATTENTION:                [False,             True,              True],
+    USE_ATTENTION:                [0,                 1,                  1],
     CATEGORY:                     ["NEW"] * 3,
     LOG_FILENAME:                 ['log.log'] * 3,
     MAX_QUESTION_LEN:             [50] * 3,
@@ -217,5 +217,5 @@ LM_HP = {
     SAVE_DIR:                     [LM_MODELS]*3,
     
     RNN_CELL:                     [RNN] * 3,
-    BIDIRECTIONAL:                [False,             False,               False]
+    BIDIRECTIONAL:                [0,                 1,                  1]
 }
