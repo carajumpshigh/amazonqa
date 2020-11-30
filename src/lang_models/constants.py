@@ -216,6 +216,6 @@ LM_HP = {
     OPTIMIZER_TYPE:               [ADAM] * 3,
     SAVE_DIR:                     [LM_MODELS]*3,
     
-    RNN_CELL:                     RNN,
+    RNN_CELL:                     [RNN] * 3,
     BIDIRECTIONAL:                [False,             True,               True]
 }
