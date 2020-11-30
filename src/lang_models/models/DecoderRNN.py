@@ -182,10 +182,8 @@ class DecoderRNN(BaseRNN):
         """
         if self.bidirectional_encoder:
             # revised part
-            """
             h = torch.cat([h[0:h.size(0):2], h[1:h.size(0):2]], 2)
-            """
-            h = h
+            
         return h
 
     
