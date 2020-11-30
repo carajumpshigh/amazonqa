@@ -24,7 +24,7 @@ class Seq2Seq(nn.Module):
         self.use_attention = use_attention
         self.model_name = model_name
         self.decoder = DecoderRNN(vocab_size=vocab_size, max_len=max_len, embedding_size=e_size, hidden_size=a_hsize,
-                            n_layers=n_layers, dropout_p=dropout_p, bidirectional=bidirectional, rnn_cell=rnn_cell
+                            n_layers=n_layers, dropout_p=dropout_p, bidirectional=bidirectional, rnn_cell=rnn_cell, 
                             sos_id=C.SOS_INDEX, eos_id=C.EOS_INDEX, model_name=model_name, use_attention=self.use_attention)
 
         if model_name == C.LM_ANSWERS:
