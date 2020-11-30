@@ -16,26 +16,27 @@ class Seq2Seq(nn.Module):
 
     def __init__(self, vocab_size, h_sizes, params):
         super(Seq2Seq, self).__init__()
-
-        e_size, max_len, n_layers, dropout_p, model_name, use_attention = [params[i] for i in [C.EMBEDDING_DIM, C.OUTPUT_MAX_LEN, C.H_LAYERS, C.DROPOUT, C.MODEL_NAME, C.USE_ATTENTION]]
+        #TEST
+        e_size, max_len, n_layers, dropout_p, model_name, use_attention, rnn_cell, bidirectional = [params[i] for i in [C.EMBEDDING_DIM, C.OUTPUT_MAX_LEN, C.H_LAYERS, C.DROPOUT, 
+                                                                                               C.MODEL_NAME, C.USE_ATTENTION, C.RNN_CELL, C.BIDIRECTIONAL]]
         r_hsize, q_hsize, a_hsize = h_sizes
 
         self.use_attention = use_attention
         self.model_name = model_name
         self.decoder = DecoderRNN(vocab_size=vocab_size, max_len=max_len, embedding_size=e_size, hidden_size=a_hsize,
-                            n_layers=n_layers, dropout_p=dropout_p,
+                            n_layers=n_layers, dropout_p=dropout_p, bidirectional=bidirectional, rnn_cell=rnn_cell
                             sos_id=C.SOS_INDEX, eos_id=C.EOS_INDEX, model_name=model_name, use_attention=self.use_attention)
 
         if model_name == C.LM_ANSWERS:
             self.question_encoder = None
         else:
             self.question_encoder = EncoderRNN(vocab_size=vocab_size, max_len=max_len, embedding_size=e_size,
-                        hidden_size=q_hsize, n_layers=n_layers, dropout_p=dropout_p)
+                        hidden_size=q_hsize, n_layers=n_layers, dropout_p=dropout_p, bidirectional=bidirectional, rnn_cell=rnn_cell)
             self.decoder.embedding.weight = self.question_encoder.embedding.weight
 
         if model_name == C.LM_QUESTION_ANSWERS_REVIEWS:
             self.reviews_encoder = EncoderRNN(vocab_size=vocab_size, max_len=max_len, embedding_size=e_size,
-                        hidden_size=r_hsize, n_layers=n_layers, dropout_p=dropout_p)
+                        hidden_size=r_hsize, n_layers=n_layers, dropout_p=dropout_p, bidirectional=bidirectional, rnn_cell=rnn_cell)
             self.decoder.embedding.weight = self.reviews_encoder.embedding.weight
         else:
             self.reviews_encoder = None
