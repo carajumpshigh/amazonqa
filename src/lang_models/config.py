@@ -48,6 +48,9 @@ def get_model_params(model_name):
     add_arg(parser, int, C.MAX_REVIEW_LEN, H)
     add_arg(parser, str, C.SAVE_DIR, H)
     add_arg(parser, int, C.USE_ATTENTION, H)
+    #TEST
+    add_arg(parser, str, C.RNN_CELL, H)
+    add_arg(parser, int, C.BIDIRECTIONAL, H)
 
     args, _ = parser.parse_known_args()
     return vars(args)
