@@ -181,7 +181,7 @@ class DecoderRNN(BaseRNN):
             (#directions * #layers, #batch, hidden_size) -> (#layers, #batch, #directions * hidden_size)
         """
         if self.bidirectional_encoder:
-            h = torch.cat([h[0:h.size(0):2], h[1:h.size(0):2]], 2)
+            h = h
         return h
 
     
