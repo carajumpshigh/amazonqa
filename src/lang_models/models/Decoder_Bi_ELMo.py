@@ -84,7 +84,7 @@ class DecoderRNN(BaseRNN):
         else:
             self.hidden_size = hidden_size
             
-        self.rnn = self.rnn_cell(embedding_size, hidden_size, n_layers, batch_first=True, dropout=dropout_p)
+        self.rnn = self.rnn_cell(embedding_size, self.hidden_size, n_layers, batch_first=True, dropout=dropout_p)
 
         self.output_size = vocab_size
         self.max_length = max_len
