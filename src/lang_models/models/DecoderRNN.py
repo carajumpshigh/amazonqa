@@ -75,7 +75,7 @@ class DecoderRNN(BaseRNN):
 
         self.bidirectional_encoder = bidirectional
         #TEST
-        self.rnn = self.rnn_cell(embedding_size, hidden_size, n_layers, batch_first=True, dropout=dropout_p)
+        self.rnn = self.rnn_cell(embedding_size, hidden_size, n_layers, batch_first=True, dropout=dropout_p, bidirectional=bidirectional)
 
         self.output_size = vocab_size
         self.max_length = max_len
