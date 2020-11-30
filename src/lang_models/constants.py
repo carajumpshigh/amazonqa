@@ -213,7 +213,4 @@ LM_HP = {
     MAX_REVIEW_LEN:               [100] * 3,
     OPTIMIZER_TYPE:               [ADAM] * 3,
     SAVE_DIR:                     [LM_MODELS]*3,
-    
-    RNN_CELL:                     ['lstm',            'gru']
-    BIDIRECTIONAL:                [False,              True]
 }
