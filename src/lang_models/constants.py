@@ -182,6 +182,8 @@ LOG_FILENAME = 'logfile'
 LOG_DIR = '%s/log_files' % BASE_PATH
 
 LM_MODELS =                       [LM_ANSWERS,        LM_QUESTION_ANSWERS, LM_QUESTION_ANSWERS_REVIEWS]
+
+RNN =                        [RNN_CELL_LSTM, RNN_CELL_GRU]
 """
     WARNING : LM_HP shouldn't be accessed anywhere other than utils.get_model_params()
 """
@@ -213,4 +215,7 @@ LM_HP = {
     MAX_REVIEW_LEN:               [100] * 3,
     OPTIMIZER_TYPE:               [ADAM] * 3,
     SAVE_DIR:                     [LM_MODELS]*3,
+    
+    RNN_CELL:                     RNN,
+    BIDIRECTIONAL:                [False,             True,               True]
 }
