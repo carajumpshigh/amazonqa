@@ -152,6 +152,9 @@ OPTIMIZER_TYPE = 'optimizer_type'
 REVIEW_SELECT_MODE = 'review_select_mode'
 REVIEW_SELECT_NUM = 'review_select_num'
 
+RNN_CELL = 'rnn_cell'
+BIDIRECTIONAL = 'bidirectional'
+
 """
     Review select modes
 """
