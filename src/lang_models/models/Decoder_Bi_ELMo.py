@@ -78,6 +78,12 @@ class DecoderRNN(BaseRNN):
                 n_layers, rnn_cell)
 
         self.bidirectional_encoder = bidirectional
+        
+        if self.bidirectional_encoder:
+            self.hidden_size = 2*hidden_size
+        else:
+            self.hidden_size = hidden_size
+            
         self.rnn = self.rnn_cell(embedding_size, hidden_size, n_layers, batch_first=True, dropout=dropout_p)
 
         self.output_size = vocab_size
