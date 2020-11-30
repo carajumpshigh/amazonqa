@@ -20,7 +20,9 @@ class Seq2Seq(nn.Module):
         e_size, max_len, n_layers, dropout_p, model_name, use_attention, rnn_cell, bidirectional = [params[i] for i in [C.EMBEDDING_DIM, C.OUTPUT_MAX_LEN, C.H_LAYERS, C.DROPOUT, 
                                                                                                C.MODEL_NAME, C.USE_ATTENTION, C.RNN_CELL, C.BIDIRECTIONAL]]
         r_hsize, q_hsize, a_hsize = h_sizes
-
+        
+        use_attention = bool(use_attention)
+        bidirectional = bool(bidirectional)
         self.use_attention = use_attention
         self.model_name = model_name
         self.decoder = DecoderRNN(vocab_size=vocab_size, max_len=max_len, embedding_size=e_size, hidden_size=a_hsize,
