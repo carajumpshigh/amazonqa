@@ -182,6 +182,7 @@ LM_MODELS =                       [LM_ANSWERS,        LM_QUESTION_ANSWERS, LM_QU
 """
     WARNING : LM_HP shouldn't be accessed anywhere other than utils.get_model_params()
 """
+# TEST
 LM_HP = {
     MODEL_NAME:                   LM_MODELS,
     REVIEW_SELECT_MODE:           [None,              None,               HELPFUL],
@@ -209,4 +210,7 @@ LM_HP = {
     MAX_REVIEW_LEN:               [100] * 3,
     OPTIMIZER_TYPE:               [ADAM] * 3,
     SAVE_DIR:                     [LM_MODELS]*3,
+    
+    RNN_CELL:                     ['lstm',            'gru']
+    BIDIRECTIONAL:                [False,              True]
 }
