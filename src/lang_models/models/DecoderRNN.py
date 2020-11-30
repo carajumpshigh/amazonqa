@@ -176,7 +176,13 @@ class DecoderRNN(BaseRNN):
 
     
 
-   
+    def _cat_directions(self, h):
+        """ If the encoder is bidirectional, do the following transformation.
+            (#directions * #layers, #batch, hidden_size) -> (#layers, #batch, #directions * hidden_size)
+        """
+        if self.bidirectional_encoder:
+            h = h
+        return h
 
     
 
