@@ -1,7 +1,7 @@
 import torch.nn as nn
 
 from .baseRNN import BaseRNN
-import Glove
+
 
 class EncoderRNN(BaseRNN):
     r"""
