@@ -19,6 +19,8 @@ class Seq2Seq(nn.Module):
         #TEST
         e_size, max_len, n_layers, dropout_p, model_name, use_attention, rnn_cell, bidirectional = [params[i] for i in [C.EMBEDDING_DIM, C.OUTPUT_MAX_LEN, C.H_LAYERS, C.DROPOUT, 
                                                                                                C.MODEL_NAME, C.USE_ATTENTION, C.RNN_CELL, C.BIDIRECTIONAL]]
+        glove_path = './glove.twitter.27B.50d.txt'
+        
         r_hsize, q_hsize, a_hsize = h_sizes
         
         use_attention = bool(use_attention)
@@ -33,12 +35,14 @@ class Seq2Seq(nn.Module):
             self.question_encoder = None
         else:
             self.question_encoder = EncoderRNN(vocab_size=vocab_size, max_len=max_len, embedding_size=e_size,
-                        hidden_size=q_hsize, n_layers=n_layers, dropout_p=dropout_p, bidirectional=bidirectional, rnn_cell=rnn_cell)
+                        hidden_size=q_hsize, n_layers=n_layers, dropout_p=dropout_p, bidirectional=bidirectional, rnn_cell=rnn_cell
+                                              glove_path = glove_path)
             self.decoder.embedding.weight = self.question_encoder.embedding.weight
 
         if model_name == C.LM_QUESTION_ANSWERS_REVIEWS:
             self.reviews_encoder = EncoderRNN(vocab_size=vocab_size, max_len=max_len, embedding_size=e_size,
-                        hidden_size=r_hsize, n_layers=n_layers, dropout_p=dropout_p, bidirectional=bidirectional, rnn_cell=rnn_cell)
+                        hidden_size=r_hsize, n_layers=n_layers, dropout_p=dropout_p, bidirectional=bidirectional, rnn_cell=rnn_cell,
+                                             glove_path = glove_path)
             self.decoder.embedding.weight = self.reviews_encoder.embedding.weight
         else:
             self.reviews_encoder = None
