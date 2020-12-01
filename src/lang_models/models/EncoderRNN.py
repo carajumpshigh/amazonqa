@@ -48,10 +48,11 @@ class EncoderRNN(BaseRNN):
         if self.use_glove:
             embedding_glove = GloVe(name='6B', dim=50)
             self.embedding = embedding_glove.vectors
+            self.rnn = self.rnn_cell(50, hidden_size, n_layers,
+                                 batch_first=True, bidirectional=bidirectional, dropout=dropout_p)
         else:
             self.embedding = nn.Embedding(vocab_size, embedding_size)
-       
-        self.rnn = self.rnn_cell(embedding_size, hidden_size, n_layers,
+            self.rnn = self.rnn_cell(embedding_size, hidden_size, n_layers,
                                  batch_first=True, bidirectional=bidirectional, dropout=dropout_p)
 
     def forward(self, input_var, input_lengths=None):
