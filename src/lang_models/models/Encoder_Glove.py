@@ -44,8 +44,9 @@ class EncoderRNN(BaseRNN):
         self.variable_lengths = variable_lengths
         
         # use pretrained weight to replace the looked up nn.embedding
-        word_vector_loader = WordVectorLoader(embedding_size)         
-        self.embedding = word_vector_loader.create_embedding_matrix(embeddings_file_name = glove_path, max_idx= max_len, verbatim=True)
+        self.word_vector_loader = WordVectorLoader(embedding_size)         
+        self.glove_path = glove_path
+        self.max_len = max_len
  
         self.rnn = self.rnn_cell(embedding_size, hidden_size, n_layers,
                                  batch_first=True, bidirectional=bidirectional, dropout=dropout_p)
@@ -63,7 +64,9 @@ class EncoderRNN(BaseRNN):
             - **output** (batch, seq_len, hidden_size): variable containing the encoded features of the input sequence
             - **hidden** (num_layers * num_directions, batch, hidden_size): variable containing the features in the hidden state h
         """
-        embedded = self.embedding(word_to_index = input_var)
+        # use pretrained weight to replace the looked up nn.embedding
+        embedded = self.word_vector_loader.create_embedding_matrix(embeddings_file_name=self.glove_path, 
+                                                                   word_to_index=input_var, max_idx=self.max_len, verbatim=True)
         embedded = self.input_dropout(embedded)
         if self.variable_lengths:
             embedded = nn.utils.rnn.pack_padded_sequence(embedded, input_lengths, batch_first=True)
