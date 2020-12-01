@@ -2,7 +2,7 @@ import torch.nn as nn
 
 from .baseRNN import BaseRNN
 
-from .Glove import Glove
+from .Glove import WordVectorLoader
 
 class EncoderRNN(BaseRNN):
     r"""
