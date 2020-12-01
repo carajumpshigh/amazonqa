@@ -35,14 +35,20 @@ class EncoderRNN(BaseRNN):
 
     """
 
-    def __init__(self, vocab_size, max_len, embedding_size, hidden_size,
-            input_dropout_p=0, dropout_p=0,
+    def __init__(self, vocab_size, max_len, embedding_size, hidden_size, glove_path,
+            input_dropout_p=0, dropout_p=0, 
             n_layers=1, bidirectional=False, rnn_cell='lstm', variable_lengths=False):
         super(EncoderRNN, self).__init__(vocab_size, max_len, hidden_size,
                 input_dropout_p, dropout_p, n_layers, rnn_cell)
 
         self.variable_lengths = variable_lengths
-        self.embedding = nn.Embedding(vocab_size, embedding_size)
+        
+        # use pretrained weight to replace the looked up nn.embedding
+        word_vector_loader = WordVectorLoader()         
+        weight = word_vector_loader.create_embedding_matrix(glove_path, verbatim=True)
+        embedding = nn.Embedding.from_pretrained(weight)
+        
+        self.embedding = embedding
         self.rnn = self.rnn_cell(embedding_size, hidden_size, n_layers,
                                  batch_first=True, bidirectional=bidirectional, dropout=dropout_p)
 
