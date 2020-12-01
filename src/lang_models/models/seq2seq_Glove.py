@@ -36,13 +36,13 @@ class Seq2Seq(nn.Module):
         else:
             self.question_encoder = EncoderRNN(vocab_size=vocab_size, max_len=max_len, embedding_size=e_size,
                         hidden_size=q_hsize, n_layers=n_layers, dropout_p=dropout_p, bidirectional=bidirectional, rnn_cell=rnn_cell
-                                              glove_path = glove_path)
+                                              glove_path = './glove.twitter.27B.50d.txt')
             self.decoder.embedding.weight = self.question_encoder.embedding.weight
 
         if model_name == C.LM_QUESTION_ANSWERS_REVIEWS:
             self.reviews_encoder = EncoderRNN(vocab_size=vocab_size, max_len=max_len, embedding_size=e_size,
                         hidden_size=r_hsize, n_layers=n_layers, dropout_p=dropout_p, bidirectional=bidirectional, rnn_cell=rnn_cell,
-                                             glove_path = glove_path)
+                                             glove_path = './glove.twitter.27B.50d.txt')
             self.decoder.embedding.weight = self.reviews_encoder.embedding.weight
         else:
             self.reviews_encoder = None
