@@ -79,7 +79,8 @@ def main():
         logger.log('\nBeginning evaluation ..\n')
 
         # Load saved params and vocabs
-        output_file = args.output_file
+#         output_file = args.output_file
+        output_file = "./saved/output_test.json"
         logger.log('Loading vocab..')
         vocab = saver.load_vocab()
         model_name = params[C.MODEL_NAME]
