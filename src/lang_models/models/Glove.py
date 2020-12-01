@@ -4,7 +4,7 @@ import codecs
 import re
 
 
-Class Glove:
+class Glove:
     
     def loadGloveModel(glove_file):
         f = open(glove_file, 'r', encoding='UTF-8')
