@@ -90,6 +90,7 @@ class DecoderRNN(BaseRNN):
         if self.use_glove:
             embedding_glove = GloVe(name='6B', dim=50)
             self.embedding = embedding_glove.vectors
+            self.rnn = self.rnn_cell(50, hidden_size, n_layers, batch_first=True, dropout=dropout_p, bidirectional=bidirectional)
         else:          
             self.embedding = nn.Embedding(self.output_size, embedding_size)
         
