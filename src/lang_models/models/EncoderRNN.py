@@ -1,6 +1,8 @@
 import torch.nn as nn
+from torchtext.vocab import GloVe
 
 from .baseRNN import BaseRNN
+
 
 
 class EncoderRNN(BaseRNN):
@@ -41,7 +43,12 @@ class EncoderRNN(BaseRNN):
                 input_dropout_p, dropout_p, n_layers, rnn_cell)
 
         self.variable_lengths = variable_lengths
+        
+        embedding_glove = GloVe(name='6B', dim=50)
+        self.embedding = embedding_glove
+        """
         self.embedding = nn.Embedding(vocab_size, embedding_size)
+        """
         self.rnn = self.rnn_cell(embedding_size, hidden_size, n_layers,
                                  batch_first=True, bidirectional=bidirectional, dropout=dropout_p)
 
