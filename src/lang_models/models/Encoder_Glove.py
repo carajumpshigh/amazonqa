@@ -3,6 +3,7 @@ import torch.nn as nn
 from .baseRNN import BaseRNN
 import Glove
 
+
 class EncoderRNN(BaseRNN):
     r"""
     Applies a multi-layer RNN to an input sequence.
@@ -33,15 +34,19 @@ class EncoderRNN(BaseRNN):
          >>> output, hidden = encoder(input)
 
     """
-
-    def __init__(self, vocab_size, max_len, embedding_size, hidden_size,
+    
+    
+    def __init__(self, vocab_size, max_len, embedding_size, hidden_size, glove_path
             input_dropout_p=0, dropout_p=0,
             n_layers=1, bidirectional=False, rnn_cell='lstm', variable_lengths=False):
         super(EncoderRNN, self).__init__(vocab_size, max_len, hidden_size,
                 input_dropout_p, dropout_p, n_layers, rnn_cell)
 
         self.variable_lengths = variable_lengths
-        self.embedding = nn.Embedding(vocab_size, embedding_size)
+        pretrained_glove = Glove.loadGloveModel(glove_path)
+        
+        # replece nn.embedding with pretrained glove
+        self.embedding = Glove.embedding
         self.rnn = self.rnn_cell(embedding_size, hidden_size, n_layers,
                                  batch_first=True, bidirectional=bidirectional, dropout=dropout_p)
 
@@ -58,7 +63,7 @@ class EncoderRNN(BaseRNN):
             - **output** (batch, seq_len, hidden_size): variable containing the encoded features of the input sequence
             - **hidden** (num_layers * num_directions, batch, hidden_size): variable containing the features in the hidden state h
         """
-        embedded = self.embedding(input_var)
+        embedded = self.embedding(input_var,pretrained_glove)
         embedded = self.input_dropout(embedded)
         if self.variable_lengths:
             embedded = nn.utils.rnn.pack_padded_sequence(embedded, input_lengths, batch_first=True)
