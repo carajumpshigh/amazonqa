@@ -218,6 +218,6 @@ LM_HP = {
     SAVE_DIR:                     [LM_MODELS]*3,
     
     RNN_CELL:                     [RNN] * 3,
-    BIDIRECTIONAL:                [0,                 1,                  1]
+    BIDIRECTIONAL:                [0,                 1,                  1],
     USE_GLOVE:                    [0,                 1,                  1]
 }
