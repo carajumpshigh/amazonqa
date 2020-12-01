@@ -45,7 +45,7 @@ class EncoderRNN(BaseRNN):
         
         # use pretrained weight to replace the looked up nn.embedding
         word_vector_loader = WordVectorLoader(embedding_size)         
-        self.embedding = word_vector_loader.create_embedding_matrix(glove_path, word_to_index, max_idx= max_len, verbatim=True)
+        self.embedding = word_vector_loader.create_embedding_matrix(embeddings_file_name = glove_path, max_idx= max_len, verbatim=True)
  
         self.rnn = self.rnn_cell(embedding_size, hidden_size, n_layers,
                                  batch_first=True, bidirectional=bidirectional, dropout=dropout_p)
