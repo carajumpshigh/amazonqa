@@ -36,7 +36,7 @@ class EncoderRNN(BaseRNN):
     """
     
     
-    def __init__(self, vocab_size, max_len, embedding_size, hidden_size, glove_path
+    def __init__(self, vocab_size, max_len, embedding_size, hidden_size, glove_path,
             input_dropout_p=0, dropout_p=0,
             n_layers=1, bidirectional=False, rnn_cell='lstm', variable_lengths=False):
         super(EncoderRNN, self).__init__(vocab_size, max_len, hidden_size,
