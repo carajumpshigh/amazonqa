@@ -51,6 +51,7 @@ def get_model_params(model_name):
     #TEST
     add_arg(parser, str, C.RNN_CELL, H)
     add_arg(parser, int, C.BIDIRECTIONAL, H)
+    add_arg(parser, int, C.USE_GLOVE, H)
 
     args, _ = parser.parse_known_args()
     return vars(args)
