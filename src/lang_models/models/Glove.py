@@ -5,7 +5,7 @@ import timeit
 import datetime
 
 
-class Glove:
+class WordVectorLoader:
 
     def __init__(self, embed_dim):
         self.embed_index = {}
