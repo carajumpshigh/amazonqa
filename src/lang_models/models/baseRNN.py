@@ -35,9 +35,15 @@ class BaseRNN(nn.Module):
         self.n_layers = n_layers
         self.input_dropout_p = input_dropout_p
         self.input_dropout = nn.Dropout(p=input_dropout_p)
+        """
         if rnn_cell.lower() == 'lstm':
             self.rnn_cell = nn.LSTM
         elif rnn_cell.lower() == 'gru':
+            self.rnn_cell = nn.GRU
+        """
+        if rnn_cell == 'lstm':
+            self.rnn_cell = nn.LSTM
+        elif rnn_cell == 'gru':
             self.rnn_cell = nn.GRU
         else:
             raise ValueError("Unsupported RNN Cell: {0}".format(rnn_cell))
