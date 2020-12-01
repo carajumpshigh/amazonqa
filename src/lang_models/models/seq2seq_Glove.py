@@ -8,7 +8,7 @@ import torch.nn as nn
 import constants as C
 
 from models.DecoderRNN import DecoderRNN
-from models.EncoderRNN import EncoderRNN
+from models.Encoder_Glove import EncoderRNN
 from models.baseRNN import BaseRNN
 
 
