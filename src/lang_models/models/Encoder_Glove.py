@@ -44,7 +44,7 @@ class EncoderRNN(BaseRNN):
         self.variable_lengths = variable_lengths
         
         # use pretrained weight to replace the looked up nn.embedding
-        word_vector_loader = WordVectorLoader()         
+        word_vector_loader = WordVectorLoader(embedding_size)         
         weight = word_vector_loader.create_embedding_matrix(glove_path, verbatim=True)
         embedding = nn.Embedding.from_pretrained(weight)
         
