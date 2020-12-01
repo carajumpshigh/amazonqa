@@ -7,6 +7,8 @@ import torch.nn as nn
 from torch.autograd import Variable
 import torch.nn.functional as F
 
+from torchtext.vocab import GloVe
+
 from .attention import Attention
 from .baseRNN import BaseRNN
 
@@ -65,7 +67,7 @@ class DecoderRNN(BaseRNN):
     KEY_LENGTH = 'length'
     KEY_SEQUENCE = 'sequence'
 
-    def __init__(self, vocab_size, max_len, embedding_size, hidden_size,
+    def __init__(self, vocab_size, max_len, embedding_size, hidden_size, use_glove,
             sos_id, eos_id, model_name, n_layers=1, rnn_cell='lstm', bidirectional=False,
             input_dropout_p=0, dropout_p=0, use_attention=False
         ):
@@ -83,8 +85,14 @@ class DecoderRNN(BaseRNN):
         self.sos_id = sos_id
 
         self.init_input = None
-
-        self.embedding = nn.Embedding(self.output_size, embedding_size)
+        self.use_glove = use_glove
+        
+        if self.use_glove:
+            embedding_glove = GloVe(name='6B', dim=50)
+            self.embedding = embedding_glove.vectors
+        else:          
+            self.embedding = nn.Embedding(self.output_size, embedding_size)
+        
         if use_attention:
             self.attention = Attention(self.hidden_size, model_name)
 
@@ -93,7 +101,11 @@ class DecoderRNN(BaseRNN):
     def forward_step(self, input_var, hidden, encoder_outputs, function):
         batch_size = input_var.size(0)
         output_size = input_var.size(1)
-        embedded = self.embedding(input_var)
+        if self.use_glove:
+            embedded = self.embedding[input_var]
+        else:
+            embedded = self.embedding(input_var)
+        
         embedded = self.input_dropout(embedded)
 
         output, hidden = self.rnn(embedded, hidden)
