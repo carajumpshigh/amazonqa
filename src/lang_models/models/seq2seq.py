@@ -27,21 +27,21 @@ class Seq2Seq(nn.Module):
         use_glove = bool(use_glove)
         self.use_attention = use_attention
         self.model_name = model_name
-        self.decoder = DecoderRNN(vocab_size=vocab_size, max_len=max_len, embedding_size=e_size, hidden_size=a_hsize, use_glove = use_glove
+        self.decoder = DecoderRNN(vocab_size=vocab_size, max_len=max_len, embedding_size=e_size, hidden_size=a_hsize, use_glove=use_glove,
                             n_layers=n_layers, dropout_p=dropout_p, bidirectional=bidirectional, rnn_cell=rnn_cell, 
                             sos_id=C.SOS_INDEX, eos_id=C.EOS_INDEX, model_name=model_name, use_attention=self.use_attention)
 
         if model_name == C.LM_ANSWERS:
             self.question_encoder = None
         else:
-            self.question_encoder = EncoderRNN(vocab_size=vocab_size, max_len=max_len, embedding_size=e_size, use_glove = use_glove
+            self.question_encoder = EncoderRNN(vocab_size=vocab_size, max_len=max_len, embedding_size=e_size, use_glove=use_glove,
                         hidden_size=q_hsize, n_layers=n_layers, dropout_p=dropout_p, bidirectional=bidirectional, rnn_cell=rnn_cell)
             if use_glove == False:
                 self.decoder.embedding.weight = self.question_encoder.embedding.weight
 
 
         if model_name == C.LM_QUESTION_ANSWERS_REVIEWS: 
-            self.reviews_encoder = EncoderRNN(vocab_size=vocab_size, max_len=max_len, embedding_size=e_size, use_glove = use_glove
+            self.reviews_encoder = EncoderRNN(vocab_size=vocab_size, max_len=max_len, embedding_size=e_size, use_glove=use_glove,
                         hidden_size=r_hsize, n_layers=n_layers, dropout_p=dropout_p, bidirectional=bidirectional, rnn_cell=rnn_cell)
             if use_glove == False:               
                 self.decoder.embedding.weight = self.reviews_encoder.embedding.weight
