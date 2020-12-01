@@ -103,7 +103,7 @@ class DecoderRNN(BaseRNN):
         batch_size = input_var.size(0)
         output_size = input_var.size(1)
         if self.use_glove:
-            embedded = self.embedding[input_var]
+            embedded = self.embedding[input_var].to('cuda')
         else:
             embedded = self.embedding(input_var)
         
