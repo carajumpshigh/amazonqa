@@ -19,7 +19,7 @@ class Seq2Seq(nn.Module):
         #TEST
         e_size, max_len, n_layers, dropout_p, model_name, use_attention, rnn_cell, bidirectional = [params[i] for i in [C.EMBEDDING_DIM, C.OUTPUT_MAX_LEN, C.H_LAYERS, C.DROPOUT, 
                                                                                                C.MODEL_NAME, C.USE_ATTENTION, C.RNN_CELL, C.BIDIRECTIONAL]]
-        glove_path = './glove.twitter.27B.50d.txt'
+        glove_path = './drive/MyDrive/Colab Notebooks/glove.twitter.27B.50d.txt'
         
         r_hsize, q_hsize, a_hsize = h_sizes
         
