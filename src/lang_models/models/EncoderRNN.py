@@ -46,9 +46,9 @@ class EncoderRNN(BaseRNN):
         self.use_glove = use_glove
         
         if self.use_glove:
-            embedding_glove = GloVe(name='6B', dim=50)
+            embedding_glove = GloVe(name="twitter.27B", dim=200)
             self.embedding = embedding_glove.vectors
-            self.rnn = self.rnn_cell(50, hidden_size, n_layers,
+            self.rnn = self.rnn_cell(200, hidden_size, n_layers,
                                  batch_first=True, bidirectional=bidirectional, dropout=dropout_p)
         else:
             self.embedding = nn.Embedding(vocab_size, embedding_size)
