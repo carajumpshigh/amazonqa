@@ -43,7 +43,7 @@ class EncoderRNN(BaseRNN):
                 input_dropout_p, dropout_p, n_layers, rnn_cell)
 
         self.variable_lengths = variable_lengths
-        pretrained_glove = Glove.loadGloveModel(glove_path)
+        self.pretrained_glove = Glove.loadGloveModel(glove_path)
         
         # replece nn.embedding with pretrained glove
         self.embedding = Glove.embedding
@@ -63,6 +63,7 @@ class EncoderRNN(BaseRNN):
             - **output** (batch, seq_len, hidden_size): variable containing the encoded features of the input sequence
             - **hidden** (num_layers * num_directions, batch, hidden_size): variable containing the features in the hidden state h
         """
+        pretrained_glove = self.pretrained_glove
         embedded = self.embedding(input_var,pretrained_glove)
         embedded = self.input_dropout(embedded)
         if self.variable_lengths:
