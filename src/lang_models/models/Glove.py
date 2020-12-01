@@ -29,7 +29,7 @@ class Glove:
 
 
     def glove_embedding_one_string(string, pretrained_glove):
-        words = string.lower().split()
+        words = string.split()
         new_words = [re.sub('[{}!#?,.:";@$%^&*()_+-=|[]:;">/?<,.~]', '', word) for word in words]
         temp = [pretrained_glove[i] for i in new_words if i in pretrained_glove.keys()]
         temp = np.array(temp)
