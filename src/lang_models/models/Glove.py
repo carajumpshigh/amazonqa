@@ -41,6 +41,6 @@ class Glove:
         l = pretrained_glove['a'].shape[0]
         temp = np.zeros((n, l))
         for i in list:
-            temp[t] = glove_embedding_one_string(i, pretrained_glove)
+            temp[t] = Glove.glove_embedding_one_string(i, pretrained_glove)
             t += 1
         return np.array(temp)
