@@ -154,6 +154,7 @@ REVIEW_SELECT_NUM = 'review_select_num'
 
 RNN_CELL = 'rnn_cell'
 BIDIRECTIONAL = 'bidirectional'
+USE_GLOVE = 'use_glove'
 
 """
     Review select modes
@@ -218,4 +219,5 @@ LM_HP = {
     
     RNN_CELL:                     [RNN] * 3,
     BIDIRECTIONAL:                [0,                 1,                  1]
+    USE_GLOVE:                    [0,                 1,                  1]
 }
