@@ -69,7 +69,7 @@ class EncoderRNN(BaseRNN):
             - **hidden** (num_layers * num_directions, batch, hidden_size): variable containing the features in the hidden state h
         """
         if self.use_glove:
-            embedded = self.embedding[input_var]
+            embedded = self.embedding[input_var].to('cuda)
         else:
             embedded = self.embedding(input_var)
         embedded = self.input_dropout(embedded)
